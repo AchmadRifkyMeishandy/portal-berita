@@ -6,10 +6,18 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use RuntimeException;
+
+use function PHPUnit\Framework\throwException;
 
 class ArticleSeeder extends Seeder
 {
+    private const TOTAL_ARTICLES = 100;
+    private const PUBLISHED_ARTICLES = 60;
+    private const DRAFT_ARTICLES = 25;
+    private const REVIEW_ARTICLES = 15;
     /**
      * Run the database seeds.
      */
@@ -24,19 +32,36 @@ class ArticleSeeder extends Seeder
         $tags = Tag::query()->get();
 
         if ($authors->isEmpty()) {
-            return;
+            throw new RuntimeException('No journalist users found.');
         }
 
         if ($categories->isEmpty() || $tags->isEmpty()) {
-            return;
+            throw new RuntimeException('No active categories found.');
         }
 
         $articles = Article::factory()
-            ->count(100)
+            ->count(self::TOTAL_ARTICLES)
             ->state(fn() => [
                 'author_id' => $authors->random()->id,
             ])
-            ->published()
+            ->state(new Sequence(
+                fn(Sequence $sequence) => match (true) {
+                    $sequence->index < self::PUBLISHED_ARTICLES => [
+                        'status' => 'published',
+                        'published_at' => fake()->dateTimeBetween('-1 year', 'now'),
+                    ],
+
+                    $sequence->index < self::PUBLISHED_ARTICLES + self::DRAFT_ARTICLES => [
+                        'status' => 'draft',
+                        'published_at' => null,
+                    ],
+
+                    default => [
+                        'status' => 'review',
+                        'published_at' => null,
+                    ],
+                }
+            ))
             ->create();
 
         foreach ($articles as $article) {
