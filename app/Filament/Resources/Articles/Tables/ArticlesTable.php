@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Tables;
 
+use App\Models\Article;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -33,7 +34,14 @@ class ArticlesTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+
+                ImageColumn::make('featured_image')
+                    ->label('Featured Image')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->imageHeight(60)
+                    ->alt(fn(Article $record): string => $record->title),
+
                 TextColumn::make('status')
                     ->searchable(),
                 IconColumn::make('is_featured')

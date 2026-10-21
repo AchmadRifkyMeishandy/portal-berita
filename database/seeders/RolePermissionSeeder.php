@@ -25,6 +25,8 @@ class RolePermissionSeeder extends Seeder
             'articles.create',
             'articles.update',
             'articles.delete',
+            'articles.restore',
+            'articles.submit_review',
             'articles.review',
             'articles.publish',
 
@@ -81,6 +83,9 @@ class RolePermissionSeeder extends Seeder
             'articles.view',
             'articles.create',
             'articles.update',
+            'articles.delete',
+            'articles.restore',
+            'articles.submit_review',
             'articles.review',
             'articles.publish',
 
@@ -98,9 +103,7 @@ class RolePermissionSeeder extends Seeder
             'articles.view',
             'articles.create',
             'articles.update',
-
-            'categories.manage',
-            'tags.manage',
+            'articles.submit_review',
 
             'comments.view',
 

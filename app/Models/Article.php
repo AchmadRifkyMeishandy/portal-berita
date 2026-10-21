@@ -18,6 +18,7 @@ class Article extends Model
         'slug',
         'excerpt',
         'content',
+        'revision_notes',
         'featured_image',
         'status',
         'is_featured',
