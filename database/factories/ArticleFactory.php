@@ -18,8 +18,6 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->sentence(8);
-
         $topics = [
             'Persija Jakarta',
             'Timnas Indonesia',
@@ -52,7 +50,7 @@ class ArticleFactory extends Factory
 
     public function published(): static
     {
-        return $this->state(fn($array, $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'status' => 'published',
             'published_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ]);
@@ -60,14 +58,14 @@ class ArticleFactory extends Factory
 
     public function featured(): static
     {
-        return $this->state(fn($array, $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'is_featured' => true,
         ]);
     }
 
     public function breaking(): static
     {
-        return $this->state(fn($array, $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'is_breaking' => true,
         ]);
     }
