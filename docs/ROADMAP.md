@@ -1,6 +1,4 @@
-from pathlib import Path
-
-content = r"""# Portal Berita Sepakbola — Development & Learning Roadmap
+# Portal Berita Sepakbola — Development & Learning Roadmap
 
 > Dokumen ini menjadi pedoman utama pengembangan project **Portal Berita Sepakbola** sekaligus pedoman belajar Laravel untuk pemula.
 >
@@ -953,7 +951,4 @@ Dan setiap kali ada fitur baru, selalu tanyakan:
 > **Apa risiko atau trade-off-nya?**
 >
 > **Bagaimana kita membuktikan bahwa implementasinya benar?**
-> """
-> path = Path("/mnt/data/README.md")
-> path.write_text(content, encoding="utf-8")
-> print(path)
+>
