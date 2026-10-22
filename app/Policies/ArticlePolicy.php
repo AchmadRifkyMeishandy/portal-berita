@@ -96,4 +96,19 @@ class ArticlePolicy
     ): bool {
         return $user->can('articles.review') && $article->status === 'review';
     }
+
+    public function deleteAny(User $user): bool
+    {
+        return $user->can('articles.delete');
+    }
+
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('articles.restore');
+    }
+
+    public function forceDeleteAny(User $user): bool
+    {
+        return false;
+    }
 }
